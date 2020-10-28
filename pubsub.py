@@ -57,7 +57,7 @@ class PubSubCheck(AgentCheck):
         )
 
         response_obj = json.loads(response.content)
-        for entry in response_obj.get('data'):
+        for entry in response_obj.get('data', []):
             tags_list = ['vpn_name:{}'.format(entry['msgVpnName'])]
             stats_dict = flatten_dict('pubsub', entry)
             complete_stats_tuple_list.append((tags_list, stats_dict))
@@ -75,7 +75,7 @@ class PubSubCheck(AgentCheck):
             )
 
             response_obj = json.loads(response.content)
-            for entry in response_obj.get('data'):
+            for entry in response_obj.get('data', []):
                 tags_list = ['vpn_name:{}'.format(msg_vpn),
                              'queue_name:{}'.format(entry['queueName'])]
                 stats_dict = flatten_dict('pubsub', entry)
@@ -97,7 +97,7 @@ class PubSubCheck(AgentCheck):
             )
 
             response_obj = json.loads(response.content)
-            for entry in response_obj.get('data'):
+            for entry in response_obj.get('data', []):
                 tags_list = ['vpn_name:{}'.format(msg_vpn),
                              'bridge_name:{}'.format(entry['bridgeName'])]
                 stats_dict = flatten_dict('pubsub', entry)
@@ -123,7 +123,7 @@ class PubSubCheck(AgentCheck):
                 )
 
                 response_obj = json.loads(response.content)
-                for entry in response_obj.get('data'):
+                for entry in response_obj.get('data', []):
                     tags_list = [
                         'vpn_name:{}'.format(msg_vpn),
                         'queue_name:{}'.format(queue_name),
@@ -145,7 +145,7 @@ class PubSubCheck(AgentCheck):
             )
 
             response_obj = json.loads(response.content)
-            for entry in response_obj.get('data'):
+            for entry in response_obj.get('data', []):
                 tags_list = ['vpn_name:{}'.format(msg_vpn),
                              'topic_endpoint_name:{}'.format(
                                  entry['topicEndpointName']
@@ -164,7 +164,7 @@ class PubSubCheck(AgentCheck):
             )
 
             response_obj = json.loads(response.content)
-            for entry in response_obj.get('data'):
+            for entry in response_obj.get('data', []):
                 tags_list = ['vpn_name:{}'.format(msg_vpn),
                              'client_name:{}'.format(
                                  entry['clientName'].strip('#')
